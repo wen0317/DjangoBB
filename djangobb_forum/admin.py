@@ -2,11 +2,12 @@
 
 from django.contrib import admin
 from django.contrib.auth import admin as auth_admin
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User as auth_User
 from django.utils.translation import ugettext_lazy as _
 
 from djangobb_forum.models import Category, Forum, Topic, Post, Profile, Reputation, \
-    Report, Ban, Attachment, Poll, PollChoice, PostTracking
+    Report, Ban, Attachment, Poll, PollChoice, PostTracking, User
+
 
 
 class BaseModelAdmin(admin.ModelAdmin):
@@ -87,7 +88,9 @@ class PollAdmin(admin.ModelAdmin):
     inlines = [PollChoiceInline]
 
 
-admin.site.unregister(User)
+if isinstance(User, auth_User):
+    admin.site.unregister(User)
+
 admin.site.register(User, UserAdmin)
 
 admin.site.register(Category, CategoryAdmin)
