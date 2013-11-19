@@ -25,13 +25,14 @@ from djangobb_forum.forms import AddPostForm, EditPostForm, UserSearchForm, \
     PostSearchForm, ReputationForm, MailToForm, EssentialsProfileForm, \
     VotePollForm, ReportForm, VotePollForm, PollForm
 from djangobb_forum.models import Category, Forum, Topic, Post, Reputation, \
-    Attachment, PostTracking, User
+    Attachment, PostTracking
 from djangobb_forum.templatetags import forum_extras
 from djangobb_forum.templatetags.forum_extras import forum_moderated_by
 from djangobb_forum.util import build_form, paginate, set_language, smiles, convert_text_to_html
 
 
-
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 def index(request, full=True):
     users_cached = cache.get('djangobb_users_online', {})
