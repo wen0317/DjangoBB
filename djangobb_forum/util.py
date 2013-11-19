@@ -22,12 +22,6 @@ from django.contrib.sites.models import Site
 
 from djangobb_forum import settings as forum_settings
 
-try:
-    from django.contrib.auth import get_user_model
-except ImportError:
-    def get_user_model():
-        from django.contrib.auth.models import User
-        return User
 
 #compile smiles regexp
 _SMILES = [(re.compile(smile_re), path) for smile_re, path in forum_settings.SMILES]
@@ -243,4 +237,3 @@ def convert_text_to_html(text, markup):
     else:
         raise Exception('Invalid markup property: %s' % markup)
     return urlize(text)
-

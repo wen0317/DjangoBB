@@ -6,9 +6,9 @@ from django.contrib.auth.models import User as auth_User
 from django.utils.translation import ugettext_lazy as _
 
 from djangobb_forum.models import Category, Forum, Topic, Post, Profile, Reputation, \
-    Report, Ban, Attachment, Poll, PollChoice, PostTracking, User
+    Report, Ban, Attachment, Poll, PollChoice, PostTracking
 
-
+from django.contrib.auth import get_user_model
 
 class BaseModelAdmin(admin.ModelAdmin):
     def get_actions(self, request):
@@ -87,11 +87,10 @@ class PollAdmin(admin.ModelAdmin):
     list_filter = ("active",)
     inlines = [PollChoiceInline]
 
-
+User = get_user_model()
 if isinstance(User, auth_User):
     admin.site.unregister(User)
-
-admin.site.register(User, UserAdmin)
+    admin.site.register(User, UserAdmin)
 
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Forum, ForumAdmin)
